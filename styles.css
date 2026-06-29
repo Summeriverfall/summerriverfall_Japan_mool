@@ -1349,7 +1349,7 @@ html[lang="zh-CN"] {
   }
 
   .lang-card {
-    padding: 0.6rem 1rem 0.6rem 4.5rem;
+    padding: 0.6rem 1rem 0.6rem 5.5rem;
   }
 
   .lang-store-card {
@@ -1377,15 +1377,17 @@ html[lang="zh-CN"] {
   }
 
   .lang-card {
-    padding: 0.6rem 0.8rem 0.6rem 4rem;
+    padding: 0.6rem 1rem 0.6rem 5.5rem;
   }
 
   .lang-card-name {
     font-size: 0.95rem;
+    width: 5em;
   }
 
   .lang-card-desc {
     font-size: 0.7rem;
+    width: 9em;
   }
 
   .lang-store-card {

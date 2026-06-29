@@ -349,25 +349,26 @@ html[lang="zh-CN"] {
 /* Hero quick nav pills */
 .hero-quick-nav {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   justify-content: center;
-  gap: 0.5rem;
+  gap: 0.35rem;
   margin-top: var(--space-lg);
 }
 
 .hero-nav-pill {
   display: inline-block;
-  padding: 0.5rem 1.25rem;
+  padding: 0.4rem 0.75rem;
   font-family: var(--font-body);
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   font-weight: 400;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.04em;
   color: var(--charcoal);
   background: transparent;
   border: 1px solid rgba(0,0,0,0.12);
   border-radius: 999px;
   text-decoration: none;
   transition: all var(--transition);
+  white-space: nowrap;
 }
 
 .hero-nav-pill:hover {

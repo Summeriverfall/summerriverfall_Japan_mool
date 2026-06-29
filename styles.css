@@ -1095,16 +1095,15 @@ html[lang="zh-CN"] {
   border: 1px solid rgba(184, 149, 107, 0.15);
   border-radius: 12px;
   padding: 0.65rem 1rem;
-  text-align: left;
   text-decoration: none;
   color: var(--charcoal);
   transition: all 0.3s ease;
   cursor: pointer;
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: center;
-  gap: 0.15rem;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.4rem;
   box-shadow: 0 2px 8px rgba(0,0,0,0.04);
 }
 
@@ -1123,14 +1122,16 @@ html[lang="zh-CN"] {
   font-weight: 600;
   letter-spacing: 0.3px;
   color: var(--charcoal);
-  min-width: 5.5em;
+  width: 5em;
+  flex-shrink: 0;
+  text-align: left;
 }
 
 .lang-card-desc {
   font-size: 0.8rem;
   font-weight: 400;
   color: var(--charcoal-light);
-  min-width: 5.5em;
+  text-align: left;
 }
 
 /* Buttons */

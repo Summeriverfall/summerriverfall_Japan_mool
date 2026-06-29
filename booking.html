@@ -185,10 +185,7 @@
       justify-content: center;
     }
 
-    .whatsapp-icon svg {
-      width: 100%; height: 100%;
-      fill: currentColor;
-    }
+    .whatsapp-icon svg { width: 100%; height: 100%; fill: currentColor; }
 
     .success-message {
       display: none;
@@ -205,6 +202,55 @@
     .success-message.show {
       display: block;
       animation: fadeInUp 0.5s ease-out;
+    }
+
+    .additional-services {
+      display: none;
+      margin-top: 1.5rem;
+      padding-top: 1.5rem;
+      border-top: 1px dashed #ddd;
+    }
+
+    .additional-services.show {
+      display: block;
+      animation: fadeIn 0.3s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    .guest-service-row {
+      background: #f9f9f9;
+      padding: 1rem;
+      border-radius: 8px;
+      margin-bottom: 0.75rem;
+    }
+
+    .guest-service-row:last-child { margin-bottom: 0; }
+
+    .guest-label {
+      font-size: 0.85rem;
+      color: #666;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+    }
+
+    .guest-service-row .form-select { background: #fff; }
+
+    .same-package-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      font-weight: 400;
+      font-size: 0.9rem;
+    }
+
+    .same-package-label input[type="checkbox"] {
+      width: auto;
+      margin: 0;
     }
 
     @media (max-width: 768px) {
@@ -296,6 +342,18 @@
           <div class="form-error">Please enter your name</div>
         </div>
 
+        <div class="form-group" id="samePackageGroup" style="display: none;">
+          <label class="same-package-label">
+            <input type="checkbox" id="samePackage" name="samePackage" checked>
+            <span>All guests choose the same package</span>
+          </label>
+        </div>
+
+        <div class="additional-services" id="additionalServices">
+          <h4 style="font-size: 1rem; color: #b8956b; margin-bottom: 1rem;">Additional Guests' Services (if different)</h4>
+          <div id="additionalServicesContainer"></div>
+        </div>
+
         <button type="submit" class="submit-button" id="submitButton">
           <span class="whatsapp-icon">
             <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.884-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
@@ -309,13 +367,86 @@
   <script>
     const WHATSAPP_NUMBER = '85290744644';
 
-    const dateInput = document.getElementById('date');
-    const today = new Date().toISOString().split('T')[0];
+    var serviceInfo = {
+      'Essential Lash': { price: 13200 },
+      'Signature Custom Lash': { price: 19800 },
+      'Luxury Volume Lash': { price: 22000 },
+      'Black Tint Lash Lift': { price: 15400 },
+      'Relaxation Facial Ritual': { price: 16500 },
+      'Deep Pore Purifying Facial': { price: 22000 },
+      'Japanese Skin Renewal Ritual': { price: 27500 },
+      'Essential Gel Nails (Off Included)': { price: 16500 },
+      'Essential Gel Nails (No Removal)': { price: 11000 },
+      'Signature Custom Nails (Off Included)': { price: 26400 },
+      'Signature Custom Nails (No Removal)': { price: 19800 },
+      'Essential Foot Gel': { price: 13200 },
+      'Signature Custom Foot': { price: 17600 }
+    };
+
+    var serviceOptionsHTML = document.getElementById('service').innerHTML;
+
+    var dateInput = document.getElementById('date');
+    var today = new Date().toISOString().split('T')[0];
     dateInput.setAttribute('min', today);
 
+    // Pre-select service from URL parameter
+    (function() {
+      var params = new URLSearchParams(window.location.search);
+      var svc = params.get('service');
+      if (svc) {
+        var sel = document.getElementById('service');
+        for (var i = 0; i < sel.options.length; i++) {
+          if (sel.options[i].value === svc) {
+            sel.options[i].selected = true;
+            break;
+          }
+        }
+      }
+    })();
+
+    // Guests change → update additional services
+    document.getElementById('guests').addEventListener('change', updateAdditionalServices);
+    document.getElementById('samePackage').addEventListener('change', updateAdditionalServices);
+
+    function updateAdditionalServices() {
+      var guests = document.getElementById('guests').value;
+      var additionalServices = document.getElementById('additionalServices');
+      var container = document.getElementById('additionalServicesContainer');
+      var samePackageGroup = document.getElementById('samePackageGroup');
+      var samePackageCheckbox = document.getElementById('samePackage');
+
+      if (!guests || guests === '1') {
+        additionalServices.classList.remove('show');
+        container.innerHTML = '';
+        samePackageGroup.style.display = 'none';
+        return;
+      }
+
+      samePackageGroup.style.display = 'block';
+
+      if (samePackageCheckbox.checked) {
+        additionalServices.classList.remove('show');
+        container.innerHTML = '';
+        return;
+      }
+
+      var additionalCount = parseInt(guests) - 1;
+      var html = '';
+      for (var i = 1; i <= additionalCount; i++) {
+        html += '<div class="guest-service-row">' +
+          '<div class="guest-label">Guest ' + (i + 1) + '</div>' +
+          '<select name="guest' + i + 'Service" class="form-select">' +
+          serviceOptionsHTML +
+          '</select>' +
+          '</div>';
+      }
+      container.innerHTML = html;
+      additionalServices.classList.add('show');
+    }
+
     function validateForm() {
-      let isValid = true;
-      document.querySelectorAll('.form-group').forEach(g => g.classList.remove('error'));
+      var isValid = true;
+      document.querySelectorAll('.form-group').forEach(function(g) { g.classList.remove('error'); });
 
       if (!document.getElementById('name').value.trim()) {
         document.getElementById('nameGroup').classList.add('error');
@@ -341,31 +472,64 @@
     }
 
     function formatDate(dateString) {
-      const date = new Date(dateString + 'T00:00:00');
+      var date = new Date(dateString + 'T00:00:00');
       return date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
     }
 
     function formatTime(timeString) {
-      const [hours, minutes] = timeString.split(':');
-      const hour = parseInt(hours);
-      const ampm = hour >= 12 ? 'PM' : 'AM';
-      const displayHour = hour % 12 || 12;
-      return displayHour + ':' + minutes + ' ' + ampm;
+      var parts = timeString.split(':');
+      var hour = parseInt(parts[0]);
+      var ampm = hour >= 12 ? 'PM' : 'AM';
+      var displayHour = hour % 12 || 12;
+      return displayHour + ':' + parts[1] + ' ' + ampm;
     }
 
     function buildWhatsAppMessage(formData) {
-      const name = formData.get('name');
-      const date = formatDate(formData.get('date'));
-      const time = formatTime(formData.get('time'));
-      const guests = formData.get('guests');
-      const service = formData.get('service');
+      var name = formData.get('name');
+      var date = formatDate(formData.get('date'));
+      var time = formatTime(formData.get('time'));
+      var guests = formData.get('guests');
+      var mainService = formData.get('service');
+      var mainInfo = serviceInfo[mainService] || { price: 0 };
 
-      let message = 'Hello, I would like to make a reservation at mooi.\n\n';
+      var message = 'Hello, I would like to make a reservation at mooi.\n\n';
       message += 'Name: ' + name + '\n';
       message += 'Date: ' + date + '\n';
       message += 'Time: ' + time + '\n';
       message += 'Number of Guests: ' + guests + '\n';
-      message += 'Service: ' + service + '\n';
+      message += 'Main Guest: ' + mainService + ' (¥' + mainInfo.price.toLocaleString() + ')\n';
+
+      var guestCount = parseInt(guests);
+      var samePackage = formData.get('samePackage') === 'on';
+
+      if (samePackage) {
+        message += 'All guests choose the same package\n';
+      } else {
+        for (var i = 1; i < guestCount; i++) {
+          var gs = formData.get('guest' + i + 'Service');
+          if (gs && gs.trim()) {
+            var gInfo = serviceInfo[gs] || { price: 0 };
+            message += 'Guest ' + (i + 1) + ': ' + gs + ' (¥' + gInfo.price.toLocaleString() + ')\n';
+          }
+        }
+      }
+
+      var total = mainInfo.price;
+      if (samePackage) {
+        total = mainInfo.price * guestCount;
+      } else {
+        for (var j = 1; j < guestCount; j++) {
+          var gs2 = formData.get('guest' + j + 'Service');
+          if (gs2 && gs2.trim()) {
+            var gInfo2 = serviceInfo[gs2] || { price: 0 };
+            total += gInfo2.price;
+          }
+        }
+      }
+
+      if (total > 0) {
+        message += '\nTotal: ¥' + total.toLocaleString();
+      }
 
       return encodeURIComponent(message);
     }
@@ -374,12 +538,12 @@
       e.preventDefault();
       if (!validateForm()) return;
 
-      const formData = new FormData(this);
-      const message = buildWhatsAppMessage(formData);
-      const whatsappUrl = 'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + message;
+      var formData = new FormData(this);
+      var message = buildWhatsAppMessage(formData);
+      var whatsappUrl = 'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + message;
 
-      const successMessage = document.getElementById('successMessage');
-      const submitButton = document.getElementById('submitButton');
+      var successMessage = document.getElementById('successMessage');
+      var submitButton = document.getElementById('submitButton');
 
       successMessage.classList.add('show');
       submitButton.disabled = true;

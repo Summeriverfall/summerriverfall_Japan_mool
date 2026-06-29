@@ -473,6 +473,24 @@ html[lang="zh-CN"] {
   color: var(--charcoal-light);
 }
 
+.intro-promo-image {
+  width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.intro-promo-image img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 12px;
+  transition: transform 0.6s ease;
+}
+
+.intro-promo-image img:hover {
+  transform: scale(1.02);
+}
+
 /* ---- Environment Carousel ---- */
 
 .env-carousel-section {
@@ -896,19 +914,7 @@ html[lang="zh-CN"] {
   }
 
   .intro-features {
-    flex-direction: row;
-    flex-wrap: wrap;
-  }
-
-  .feature {
-    flex: 1 1 calc(50% - var(--space-sm));
-    flex-direction: column;
-    gap: var(--space-xs);
-    padding: var(--space-sm);
-  }
-
-  .feature-num {
-    font-size: 1.75rem;
+    width: 100%;
   }
 
   .env-carousel-slide {
@@ -1169,17 +1175,32 @@ html[lang="zh-CN"] {
   border-color: var(--gold);
 }
 
-.lang-store-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 2rem;
+.lang-store-image {
+  width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 1.5rem;
 }
 
-.lang-store-item {
+.lang-store-image img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 12px;
+  transition: transform 0.6s ease;
+}
+
+.lang-store-card:hover .lang-store-image img {
+  transform: scale(1.02);
+}
+
+.lang-store-address {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
   text-align: center;
+  padding-top: 0.5rem;
+  border-top: 1px solid rgba(184, 149, 107, 0.12);
 }
 
 .lang-store-label {
@@ -1287,11 +1308,6 @@ html[lang="zh-CN"] {
     padding: 2rem 1.5rem;
   }
 
-  .lang-store-grid {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-  }
-
   .lang-btn-whatsapp,
   .lang-btn-phone {
     max-width: 100%;
@@ -1332,10 +1348,6 @@ html[lang="zh-CN"] {
 
   .lang-store-card {
     padding: 1.75rem 1.25rem;
-  }
-
-  .lang-store-grid {
-    gap: 1.25rem;
   }
 
   .lang-store-text {

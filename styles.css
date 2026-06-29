@@ -301,9 +301,6 @@ html[lang="zh-CN"] {
   line-height: 1.15;
   letter-spacing: 0.02em;
   margin-bottom: var(--space-md);
-  max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
 }
 
 .hero-sub {

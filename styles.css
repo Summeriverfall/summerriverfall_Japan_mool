@@ -1122,16 +1122,18 @@ html[lang="zh-CN"] {
   font-weight: 600;
   letter-spacing: 0.3px;
   color: var(--charcoal);
-  width: 5em;
+  width: 5.5em;
   flex-shrink: 0;
-  text-align: left;
+  text-align: center;
 }
 
 .lang-card-desc {
   font-size: 0.8rem;
   font-weight: 400;
   color: var(--charcoal-light);
-  text-align: left;
+  width: 11em;
+  flex-shrink: 0;
+  text-align: center;
 }
 
 /* Buttons */

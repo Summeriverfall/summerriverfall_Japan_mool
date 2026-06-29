@@ -1123,12 +1123,14 @@ html[lang="zh-CN"] {
   font-weight: 600;
   letter-spacing: 0.3px;
   color: var(--charcoal);
+  min-width: 5.5em;
 }
 
 .lang-card-desc {
   font-size: 0.8rem;
   font-weight: 400;
   color: var(--charcoal-light);
+  min-width: 5.5em;
 }
 
 /* Buttons */

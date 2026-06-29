@@ -142,7 +142,8 @@ ul {
 }
 
 html[lang="zh-CN"] {
-  --font-body: "Noto Sans SC", "Noto Sans JP", sans-serif;
+  --font-body: "SimHei", "Noto Sans SC", "Noto Sans JP", sans-serif;
+  --font-display: "SimHei", "Noto Sans SC", serif;
 }
 
 .nav-links a {

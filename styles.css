@@ -869,6 +869,22 @@ html[lang="zh-CN"] .logo {
   margin-top: var(--space-sm);
 }
 
+.footer-powered {
+  font-size: 0.7rem;
+  color: rgba(250, 247, 242, 0.2);
+  margin-top: 0.25rem;
+}
+
+.footer-powered a {
+  color: rgba(250, 247, 242, 0.35);
+  text-decoration: underline;
+  transition: color 0.3s;
+}
+
+.footer-powered a:hover {
+  color: rgba(250, 247, 242, 0.6);
+}
+
 /* ---- Responsive ---- */
 
 @media (max-width: 900px) {
@@ -1138,6 +1154,7 @@ html[lang="zh-CN"] .logo {
   color: var(--charcoal-light);
   width: 11em;
   flex-shrink: 0;
+  white-space: nowrap;
   text-align: center;
 }
 
@@ -1304,6 +1321,23 @@ html[lang="zh-CN"] .logo {
   color: var(--charcoal-light);
   font-weight: 300;
   letter-spacing: 0.5px;
+}
+
+.lang-footer-powered {
+  font-size: 0.65rem;
+  color: var(--charcoal-light);
+  opacity: 0.5;
+  margin-top: 0.25rem;
+}
+
+.lang-footer-powered a {
+  color: var(--charcoal-light);
+  text-decoration: underline;
+  transition: color 0.3s;
+}
+
+.lang-footer-powered a:hover {
+  color: var(--gold);
 }
 
 /* ---- Booking Button (Service Cards) ---- */

@@ -146,6 +146,10 @@ html[lang="zh-CN"] {
   --font-display: "Cormorant Garamond", "SimHei", "Noto Sans SC", serif;
 }
 
+html[lang="zh-CN"] .logo {
+  font-family: "Cormorant Garamond", "Noto Sans JP", serif;
+}
+
 .nav-links a {
   font-size: 0.8125rem;
   letter-spacing: 0.08em;

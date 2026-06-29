@@ -1268,6 +1268,13 @@ html[lang="zh-CN"] {
   line-height: 1.5;
 }
 
+.lang-store-hours {
+  font-size: 0.8rem;
+  color: var(--charcoal-light);
+  font-weight: 400;
+  letter-spacing: 0.3px;
+}
+
 .lang-store-text a {
   color: var(--charcoal);
   text-decoration: underline;
@@ -1396,6 +1403,10 @@ html[lang="zh-CN"] {
 
   .lang-store-text {
     font-size: 0.8rem;
+  }
+
+  .lang-store-hours {
+    font-size: 0.7rem;
   }
 
   .lang-btn-whatsapp,
